@@ -83,7 +83,7 @@ description = "Ansible Middleware docs"
 
 # Comment out if you don't want the "print entire section" link enabled.
 [outputs]
-section = ["HTML", "print", "RSS"]
+section = ["HTML", "print"]
 
 [params]
 copyright = "Ansible Middleware Collections"
