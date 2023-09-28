@@ -55,8 +55,6 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install autoprefixer postcss postcss-cli
-          apt install python-docutils
-          pip install rst2html
 
       - name: Build with Hugo
         env:
