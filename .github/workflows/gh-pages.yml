@@ -38,13 +38,26 @@ jobs:
         with:
           hugo-version: 'latest'
           extended: true
-          
-      - name: Install Dependencies
-        run: npm install autoprefixer postcss postcss-cli
 
-      - name: Build
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
-      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          npm install autoprefixer postcss postcss-cli
+          apt install python-docutils
+          pip install rst2html
+
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
@@ -54,6 +67,7 @@ jobs:
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
