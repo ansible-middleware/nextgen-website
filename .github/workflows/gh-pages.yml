@@ -57,6 +57,14 @@ jobs:
           sudo apt-get install -y python3-docutils
           pip install -r requirements.txt
 
+      - name: Setup hugo module cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/.cache/hugo_cache    # <-- with hugo version v0.116.0 and above
+          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-hugomod-
+
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
