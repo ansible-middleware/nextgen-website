@@ -1,5 +1,5 @@
 ---
-title: activemq
+title: roles/activemq
 weight: 20
 ---
 

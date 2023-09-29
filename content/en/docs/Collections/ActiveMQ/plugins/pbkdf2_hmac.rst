@@ -1,5 +1,5 @@
 ---
-title: pbkdf2_hmac
+title: plugins/pbkdf2_hmac
 weight: 20
 ---
 .. Document meta
