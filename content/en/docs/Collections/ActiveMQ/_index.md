@@ -7,7 +7,7 @@ weight: 20
 
 ## User documentation
 
--   [README](README.md)
+-   [Readme](README.md)
 -   [Plugins](plugins/index.md)
 -   [Roles](roles/index.md)
 -   [Changelog](CHANGELOG.md)

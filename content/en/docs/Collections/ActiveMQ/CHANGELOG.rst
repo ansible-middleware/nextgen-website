@@ -1,3 +1,8 @@
+---
+title: Changelog
+weight: 20
+---
+
 =======================================
 middleware_automation.amq Release Notes
 =======================================
