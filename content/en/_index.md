@@ -25,10 +25,10 @@ tech:
 ---
 
 {{< blocks/cover title="Ansible Middleware" image_anchor="top" height="full" >}}
-<a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
+<a class="btn btn-lg btn-primary me-3 mb-4" href="https://developers.redhat.com/topics/ansible-automation-applications-and-services" target="_blank">
   Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://developers.redhat.com/topics/ansible-automation-applications-and-services">
+<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/ansible-middleware" target="_blank">
   Download <i class="fab fa-github ms-2 "></i>
 </a>
 <p class="lead mt-5"><b>Ansible based automation for Red Hat Application Services and upstream middleware projects</b></p>
@@ -64,8 +64,7 @@ Getting up to speed with Ansible Middleware is easy and only requires a few step
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/collections/">
   View the Collections <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
-  Explore the Documentation <i class="fas fa-arrow-alt-circle-right ms-2"></i>
+<a class="btn btn-lg btn-primary me-3 mb-4" href="https://ansiblemiddleware.com/" target="_blank">Explore the Documentation <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
 {{% /blocks/lead%}}
 

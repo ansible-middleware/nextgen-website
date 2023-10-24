@@ -1,8 +1,7 @@
 ---
-title: Overivew
-linkTitle: Overview
-menu: {main: {weight: 20}}
-weight: 20
+title: Overview
+menu: {main: {weight: 10}}
+weight: 10
 cascade: { "type": "docs"}
 ---
 
