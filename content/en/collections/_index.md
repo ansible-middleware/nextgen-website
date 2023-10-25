@@ -35,14 +35,6 @@ collections:
     source: "https://github.com/ansible-middleware/jws"
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/jws"
     example:
-  - title: AMQ
-    icon: ansible.png
-    description: >
-      Collection to install and configure Apache ActiveMQ Artemis / Red Hat AMQ broker.
-    docs: "https://ansiblemiddleware.com/amq/main/"
-    source: "https://github.com/ansible-middleware/amq"
-    galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/amq"
-    example:
   - title: Common
     icon: ansible.png
     description: >
@@ -50,6 +42,22 @@ collections:
     docs: "https://ansiblemiddleware.com/common/main/"
     source: "https://github.com/ansible-middleware/common/"
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/common/"
+    example:
+  - title: AMQ Broker
+    icon: ansible.png
+    description: >
+      Collection to install and configure Apache ActiveMQ Artemis / Red Hat AMQ broker.
+    docs: "https://ansiblemiddleware.com/amq/main/"
+    source: "https://github.com/ansible-middleware/amq"
+    galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/amq"
+    example:
+  - title: AMQ Streams
+    icon: ansible.png
+    description: >
+      Collection to install and configure Apache Kafka / Red Hat AMQ Streams.
+    docs: "https://ansiblemiddleware.com/amq_streams/main/"
+    source: "https://github.com/ansible-middleware/amq_streams"
+    galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/amq_streams"
     example:
   
 ---
