@@ -64,7 +64,7 @@ Getting up to speed with Ansible Middleware is easy and only requires a few step
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/collections/">
   View the Collections <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<a class="btn btn-lg btn-primary me-3 mb-4" href="https://ansiblemiddleware.com/" target="_blank">Explore the Documentation <i class="fas fa-arrow-alt-circle-right ms-2"></i>
+<a class="btn btn-lg btn-primary me-3 mb-4" href=" https://collections.ansiblemiddleware.com/" target="_blank">Explore the Documentation <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
 {{% /blocks/lead%}}
 
