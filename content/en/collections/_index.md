@@ -4,7 +4,7 @@ linkTitle: Collections
 menu: {main: {weight: 20}}
 collections:
   - title: WildFly
-    icon: eap.png
+    icon: ansible.png
     description: >
       WildFly collection can install, setup and maintain Wildfly server using Ansible.
     docs: "https://collections.ansiblemiddleware.com/wildfly/main/"
@@ -12,7 +12,7 @@ collections:
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/wildfly/"
     example:   
   - title: Infinispan
-    icon: datagrid.png
+    icon: ansible.png
     description: >
       Infinispan can be used as remote caches for other software, such as Keycloak or Wildfly.
     docs: "https://collections.ansiblemiddleware.com/infinispan/main"
@@ -20,7 +20,7 @@ collections:
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/infinispan/"
     example:
   - title: Keycloak
-    icon: keyclock.png
+    icon: ansible.png
     description: >
       Collection to install and configure Keycloak or Red Hat Single Sign-On.
     docs: "https://collections.ansiblemiddleware.com/keycloak/main/"
@@ -28,7 +28,7 @@ collections:
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/keycloak"
     example:
   - title: JWS
-    icon: jws.png
+    icon: ansible.png
     description: >
       JWS collection helps to set up an automated installation of Red Hat JBoss Web Server (JWS).
     docs: "https://collections.ansiblemiddleware.com/jws/main/"
@@ -36,7 +36,7 @@ collections:
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/jws"
     example:
   - title: Common
-    icon: common.png
+    icon: ansible.png
     description: >
       Common utilities to support Ansible Middleware automation.
     docs: "https://collections.ansiblemiddleware.com/common/main/"
@@ -44,7 +44,7 @@ collections:
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/common/"
     example:
   - title: AMQ Broker
-    icon: amq.png
+    icon: ansible.png
     description: >
       Collection to install and configure Apache ActiveMQ Artemis / Red Hat AMQ broker.
     docs: "https://collections.ansiblemiddleware.com/amq/main/"
@@ -52,7 +52,7 @@ collections:
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/amq"
     example:
   - title: AMQ Streams
-    icon: amq.png
+    icon: ansible.png
     description: >
       Collection to install and configure Apache Kafka / Red Hat AMQ Streams.
     docs: "https://collections.ansiblemiddleware.com/amq_streams/main/"
