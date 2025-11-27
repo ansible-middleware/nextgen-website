@@ -1,42 +1,263 @@
 {{ $collections := $.Page.Params.collections -}}
-<div class="body-container collections">
+<style>
+/* Hide the default Hugo page title on collections page */
+.td-content > h1:first-child {
+    display: none;
+}
+
+/* Page Title Visibility Fix */
+.td-content h1,
+.td-content h2,
+.blocks-lead h1,
+.blocks-lead h2 {
+    color: #1a1a1a !important;
+    font-weight: 700;
+}
+
+.collections-page-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    padding: 5rem 2rem 4rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    border-bottom: 4px solid #EE0000;
+    width: 100%;
+}
+
+.collections-page-header h1 {
+    color: #ffffff !important;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    padding-top: 1rem;
+}
+
+.collections-page-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .collections-page-header {
+        padding: 3rem 1.5rem 2rem 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .collections-page-header h1 {
+        font-size: 2rem;
+        padding-top: 0.5rem;
+    }
+    
+    .collections-page-header p {
+        font-size: 1rem;
+    }
+}
+
+.collections-container {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+}
+
+.collection-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    position: relative;
+}
+
+.collection-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #EE0000 0%, #ff4444 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.collection-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.collection-card:hover::before {
+    transform: scaleX(1);
+}
+
+.collection-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 2px solid #f0f0f0;
+}
+
+.collection-card:hover .collection-icon-wrapper {
+    transform: scale(1.05) rotate(3deg);
+    border-color: #EE0000;
+    box-shadow: 0 6px 16px rgba(238, 0, 0, 0.2);
+}
+
+.collection-icon {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.collection-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.collection-description {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.collection-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.collection-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.collection-link:hover {
+    background: #EE0000;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(238, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.collection-link-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.collection-link:hover .collection-link-icon {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .collection-card {
+        padding: 1.5rem;
+    }
+    
+    .collection-title {
+        font-size: 1.25rem;
+    }
+    
+    .collection-links {
+        gap: 0.5rem;
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-subtitle {
+    color: #666;
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 1rem auto 0;
+    line-height: 1.6;
+}
+</style>
+
+<div class="collections-page-header">
     <div class="container">
-      <div class="row mb-5">
-        <div class="col-lg-12 mt-5 mb-5">
-        </div>
-        {{ range $collections -}}
-        {{ $icon  := printf "img/icons/%s" .icon | relURL -}}
-        {{ $desc := .description | markdownify -}}
-        {{ $title := .title | markdownify -}}
-        {{ $docs := .docs | markdownify -}}
-        {{ $source := .source | markdownify -}}
-        {{ $galaxy := .galaxy | markdownify -}}
-        {{ $example := .example | markdownify -}}
-        <div class="col-4">
-          <img class="o-feature__icon" src="{{ $icon }}" alt="{{ .title }}" width="70" height="70" feature icon>
-          <h4 class="my-3">{{ $title }}</h4>
-          <p class="section-text">{{ $desc }}</p>
-            <div class="row">
-              <div class="col">
-                <p><a href="{{ .docs }}" target="_blank"><img title="Docs" src="static/img/icons/docs.png" style="width:50px;height:50px;" target="_blank"></a></p>
-                <p>&nbspDocs </p>
-              </div>
-              <div class="col">
-                <p><a href="{{ .source }}" target="_blank"><img title="Source" src="static/img/icons/git.png" style="width:50px;height:50px;"></a></p>
-                <p> Source </p>
-              </div>
-              <div class="col">
-                <p><a href="{{ .galaxy }}" target="_blank"><img title="Galaxy" src="static/img/icons/ansible.png" style="width:50px;height:50px;"></a></p>
-                <p> Galaxy </p>
-              </div>
-              <div class="col">
-                <p><a href="{{ .example }}" target="_blank"><img title="Examples" src="static/img/icons/example.png" style="width:50px;height:50px;"></a></p>
-                <p> Examples </p>
-              </div>
-            </div>
-            <br><br>
-        </div>
-        {{ end }}
+        <h1>{{ $.Page.Title }}</h1>
+        <p>Explore our comprehensive suite of Ansible collections for middleware automation</p>
     </div>
 </div>
 
+<div class="collections-container">
+    <div class="container">
+        <div class="row">
+            {{ range $collections -}}
+            {{ $icon := printf "img/icons/%s" .icon | relURL -}}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="collection-card">
+                    <div class="collection-icon-wrapper">
+                        <img class="collection-icon" src="{{ $icon }}" alt="{{ .title }} icon">
+                    </div>
+                    <h3 class="collection-title">{{ .title }}</h3>
+                    <div class="collection-description">{{ .description | markdownify }}</div>
+                    <div class="collection-links">
+                        {{ if .docs -}}
+                        <a href="{{ .docs }}" target="_blank" rel="noopener noreferrer" class="collection-link" title="View Documentation">
+                            <svg class="collection-link-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path></svg>
+                            Docs
+                        </a>
+                        {{ end -}}
+                        {{ if .source -}}
+                        <a href="{{ .source }}" target="_blank" rel="noopener noreferrer" class="collection-link" title="View Source Code">
+                            <svg class="collection-link-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            Source
+                        </a>
+                        {{ end -}}
+                        {{ if .galaxy -}}
+                        <a href="{{ .galaxy }}" target="_blank" rel="noopener noreferrer" class="collection-link" title="View on Ansible Galaxy">
+                            <svg class="collection-link-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            Galaxy
+                        </a>
+                        {{ end -}}
+                        {{ if .example -}}
+                        <a href="{{ .example }}" target="_blank" rel="noopener noreferrer" class="collection-link" title="View Examples">
+                            <svg class="collection-link-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path></svg>
+                            Examples
+                        </a>
+                        {{ end -}}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>

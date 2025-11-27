@@ -66,17 +66,42 @@ window.markmap = {
 {{ $jsBase := resources.Get "js/base.js" -}}
 {{ $jsAnchor := resources.Get "js/anchor.js" -}}
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home -}}
-{{ $jsMermaid := resources.Get "js/mermaid.js" | resources.ExecuteAsTemplate "js/mermaid.js" . -}}
-{{ $jsMarkmap := resources.Get "js/markmap.js" | resources.ExecuteAsTemplate "js/markmap.js" . -}}
-{{ $jsPlantuml := resources.Get "js/plantuml.js" | resources.ExecuteAsTemplate "js/plantuml.js" . -}}
-{{ $jsDrawio := resources.Get "js/drawio.js" | resources.ExecuteAsTemplate "js/drawio.js" . -}}
+{{ $jsMermaid := "" -}}
+{{ with resources.Get "js/mermaid.js" -}}
+  {{ $jsMermaid = . | resources.ExecuteAsTemplate "js/mermaid.js" $ -}}
+{{ end -}}
+{{ $jsMarkmap := "" -}}
+{{ with resources.Get "js/markmap.js" -}}
+  {{ $jsMarkmap = . | resources.ExecuteAsTemplate "js/markmap.js" $ -}}
+{{ end -}}
+{{ $jsPlantuml := "" -}}
+{{ with resources.Get "js/plantuml.js" -}}
+  {{ $jsPlantuml = . | resources.ExecuteAsTemplate "js/plantuml.js" $ -}}
+{{ end -}}
+{{ $jsDrawio := "" -}}
+{{ with resources.Get "js/drawio.js" -}}
+  {{ $jsDrawio = . | resources.ExecuteAsTemplate "js/drawio.js" $ -}}
+{{ end -}}
 {{ if .Site.Params.offlineSearch -}}
   {{ $jsSearch = resources.Get "js/offline-search.js" -}}
 {{ end -}}
 
-{{ $jsArray := slice $jsBs $jsBase $jsAnchor $jsSearch $jsPlantuml $jsMarkmap $jsDrawio -}}
+{{ $jsArray := slice -}}
+{{ with $jsBs }}{{ $jsArray = $jsArray | append . }}{{ end -}}
+{{ with $jsBase }}{{ $jsArray = $jsArray | append . }}{{ end -}}
+{{ with $jsAnchor }}{{ $jsArray = $jsArray | append . }}{{ end -}}
+{{ with $jsSearch }}{{ $jsArray = $jsArray | append . }}{{ end -}}
+{{ if $jsPlantuml -}}
+  {{ $jsArray = $jsArray | append $jsPlantuml -}}
+{{ end -}}
+{{ if $jsMarkmap -}}
+  {{ $jsArray = $jsArray | append $jsMarkmap -}}
+{{ end -}}
+{{ if $jsDrawio -}}
+  {{ $jsArray = $jsArray | append $jsDrawio -}}
+{{ end -}}
 
-{{ if $needmermaid -}}
+{{ if and $needmermaid $jsMermaid -}}
 {{ $jsArray = $jsArray | append $jsMermaid -}}
 <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js" integrity="sha512-ku2nmBrzAXY5YwohzTqLYH1/lvyMrpTVxgQKrvTabd/b/uesqltLORdmpVapYv6QhZVCLUX6wkvFaKOAY4xpUA==" crossorigin="anonymous"></script>
 {{ end -}}

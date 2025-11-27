@@ -13,6 +13,23 @@ usecases:
     icon: reporting.png
     description: >
       Understand what is currently running, where its deployed and the current state.
+benefits:
+  - title: Consistent
+    icon: "🔄"
+    description: >
+      Ensure reliability with a consistent development and deployment model to create, modify, deploy, and manage business apps in an automated fashion.
+  - title: Flexible
+    icon: "⚡"
+    description: >
+      Implement simple, single-site installations on a flexible platform, with the potential to grow across geographies and platforms.
+  - title: Repeatable
+    icon: "♻️"
+    description: >
+      Write once and quickly install, upgrade, rollback, configure, and scale without manual intervention.
+  - title: Reliable
+    icon: "✓"
+    description: >
+      Operate and manage large-scale JBoss infrastructure without the risk of manual errors.
 tech:
   - title: Ansible
     icon: ansible.png
@@ -35,16 +52,8 @@ tech:
 {{< blocks/link-down color="info" >}}
 {{< /blocks/cover >}}
 
-
-{{% blocks/section color="light" %}}
-Discover the benefits of using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) and [Red Hat Application Services](https://developers.redhat.com/cheat-sheets/red-hat-openshift-application-services-cheat-sheet) to build, deploy, and manage multi-cloud application infrastructure at scale. Red Hat Application Services includes a number of Red Hat products including Red Hat [JBoss Enterprise Application Platform](https://developers.redhat.com/cheat-sheets/red-hat-openshift-application-services-cheat-sheet) (WildFly), Red Hat Data Grid (Infinispan), [Red Hat’s single-sign on technology](https://access.redhat.com/products/red-hat-single-sign-on/) (Keycloak), [Red Hat AMQ](https://developers.redhat.com/node/214105) (Kafka and Broker) and more.
-
-- **Consistent**: Ensure reliability with a consistent development and deployment model to create, modify, deploy, and manage business apps in an automated fashion.
-- **Flexible**: Implement simple, single-site installations on a flexible platform, with the potential to grow across geographies and platforms.
-- **Repeatable**: Write once and quickly install, upgrade, rollback, configure, and scale without manual intervention.
-- **Reliable**: Operate and manage large-scale JBoss infrastructure without the risk of manual errors.
-
-{{% /blocks/section %}}
+<!-- Benefits -->
+{{< home/benefits >}}
 
 <!-- UseCases -->
 {{< home/usecases >}}
@@ -70,20 +79,24 @@ Getting up to speed with Ansible Middleware is easy and only requires a few step
 
 
 {{% blocks/section color="dark" type="row" %}}
-{{% blocks/feature icon="fa-lightbulb" title="Ansible Galaxy" %}}
-[middleware-automation](https://galaxy.ansible.com/middleware_automation) on Ansible Galaxy
+{{% blocks/feature icon="fa-lightbulb" title="Ansible Galaxy" url="https://galaxy.ansible.com/middleware_automation" %}}
+Explore our collections on [Ansible Galaxy](https://galaxy.ansible.com/middleware_automation) under **middleware-automation**.
 
-Please follow this space for updates!
+Stay tuned for new releases and updates!
 {{% /blocks/feature %}}
 
 
-{{% blocks/feature icon="fab fa-github" title="Contributions welcome!" url="https://github.com/ansible-middleware" %}}
-We do a Pull Request contributions workflow on [GitHub](https://github.com/ansible-middleware). New users are always welcome!
+{{% blocks/feature icon="fab fa-github" title="Contributions Welcome!" url="https://github.com/ansible-middleware" %}}
+Join our community on [GitHub](https://github.com/ansible-middleware) and help shape the future of middleware automation.
+
+**Pull requests welcome!**
 {{% /blocks/feature %}}
 
 
-{{% blocks/feature icon="fab fa-twitter" title="Follow us on Twitter!" url="https://twitter.com/redhat" %}}
-For announcement of latest features etc.
+{{% blocks/feature icon="fab fa-twitter x-logo-custom" title="Follow us on X!" url="https://x.com/redhat" %}}
+Stay connected for the latest features, releases, and middleware automation news.
+
+Follow us [@redhat](https://x.com/redhat) on X!
 {{% /blocks/feature %}}
 
 {{% /blocks/section %}}

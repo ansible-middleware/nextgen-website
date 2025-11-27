@@ -1,0 +1,7 @@
+Contact: https://github.com/ansible-middleware/issues
+Contact: mailto:ansible-middleware-core@redhat.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://ansiblemiddleware.com/.well-known/security.txt
+
+

@@ -145,4 +145,755 @@ html.smooth-scroll {
       #pageContent .lead:nth-child(2n+0) > .text {
         -ms-flex-order: 1;
             order: 1; } }
+
+  // ====================================
+  // MODERN UI ENHANCEMENTS
+  // ====================================
+
+  // Global improvements
+  body {
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  // Enhanced navbar
+  .td-navbar {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.95) !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    
+    .navbar-brand {
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 0.5rem 1rem !important;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: $primary;
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+      }
+      
+      &:hover::after,
+      &.active::after {
+        width: 80%;
+      }
+    }
+  }
+
+  // Enhanced buttons
+  .btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff !important;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    &:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(238, 0, 0, 0.3);
+    }
+    
+    // Ensure text is visible
+    span, i {
+      color: #ffffff !important;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, $primary 0%, #cc0000 100%) !important;
+    box-shadow: 0 4px 12px rgba(238, 0, 0, 0.2);
+    border: 2px solid transparent;
+    
+    &:hover {
+      box-shadow: 0 8px 20px rgba(238, 0, 0, 0.4);
+      border-color: #ff4444;
+    }
+  }
+
+  .btn-secondary {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    
+    &:hover {
+      background: linear-gradient(135deg, #5a6578 0%, #3d4758 100%) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      border-color: #ffffff;
+    }
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    border-radius: 10px;
+  }
+
+  // Buttons on dark/cover backgrounds
+  .td-cover-block .btn,
+  .td-overlay--dark .btn,
+  .bg-dark .btn {
+    color: #ffffff !important;
+    text-shadow: none;
+    
+    * {
+      color: #ffffff !important;
+    }
+  }
+
+  // Enhanced footer
+  .td-footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 3rem 0;
+    color: #fff;
+    
+    a {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.2);
+        color: $primary !important;
+      }
+    }
+    
+    &__links-item {
+      display: inline-block;
+      margin: 0 0.5rem;
+      
+      i {
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+  // Section improvements
+  .blocks-section {
+    padding: 4rem 0;
+  }
+
+  // Enhanced light section styling (homepage intro)
+  .blocks-section.color-light,
+  .td-block--light {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+    padding: 5rem 2rem !important;
+    margin: 2rem 0;
+    border-radius: 0;
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    p {
+      color: #1a1a1a !important;
+      font-size: 1.125rem !important;
+      line-height: 1.8 !important;
+      margin-bottom: 2rem !important;
+    }
+    
+    a {
+      color: #EE0000 !important;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease;
+      
+      &:hover {
+        border-bottom-color: #EE0000;
+      }
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    li {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      border-left: 4px solid #EE0000;
+      transition: all 0.3s ease;
+      position: relative;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(238, 0, 0, 0.15);
+      }
+      
+      &::before {
+        content: '✓';
+        position: absolute;
+        top: 1.5rem;
+        left: -2rem;
+        width: 2rem;
+        height: 2rem;
+        background: #EE0000;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+      
+      strong {
+        color: #EE0000 !important;
+        font-size: 1.25rem !important;
+        display: block;
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      padding: 3rem 1.5rem !important;
+      
+      ul {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      li {
+        padding: 1.5rem;
+        
+        &::before {
+          position: relative;
+          top: 0;
+          left: 0;
+          display: inline-flex;
+          margin-right: 0.5rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          font-size: 1rem;
+        }
+      }
+      
+      p {
+        font-size: 1rem !important;
+      }
+    }
+  }
+
+  // Dark section text visibility fixes
+  .td-box--dark,
+  .td-box--primary,
+  [class*="bg-dark"],
+  [class*="color-dark"] {
+    color: #ffffff !important;
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #ffffff !important;
+    }
+    
+    p, span, div {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    a {
+      color: #ffffff !important;
+      
+      &:hover {
+        color: #EE0000 !important;
+      }
+    }
+    
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+      color: #ffffff !important;
+    }
+  }
+
+  // Blocks feature styling
+  .td-box {
+    padding: 2rem;
+    
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #EE0000;
+    }
+    
+    h3, h4 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .td-box--dark {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+
+  // Enhanced feature blocks for homepage
+  .td-box.td-box--dark {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(238, 0, 0, 0.3);
+      border-color: #EE0000;
+    }
+    
+    i, .fa, .fab, .fas {
+      font-size: 4rem !important;
+      margin-bottom: 1.5rem;
+      display: block !important;
+      color: #ffffff !important;
+      transition: all 0.3s ease;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    
+    &:hover i,
+    &:hover .fa,
+    &:hover .fab,
+    &:hover .fas {
+      transform: scale(1.1);
+    }
+    
+    .fa-lightbulb,
+    i.fa-lightbulb {
+      color: #ffd700 !important;
+    }
+    
+    &:hover .fa-lightbulb,
+    &:hover i.fa-lightbulb {
+      color: #ffed4e !important;
+      filter: drop-shadow(0 0 10px #ffd700);
+    }
+    
+    .fa-github,
+    i.fa-github {
+      color: #ffffff !important;
+    }
+    
+    &:hover .fa-github,
+    &:hover i.fa-github {
+      color: #EE0000 !important;
+      filter: drop-shadow(0 0 10px #EE0000);
+    }
+    
+    .fa-x-twitter,
+    .fa-twitter,
+    i.fa-x-twitter,
+    i.fa-twitter {
+      color: #ffffff !important;
+    }
+    
+    // Custom X logo styling
+    .x-logo-custom {
+      position: relative;
+      font-size: 4rem !important;
+      
+      &::before {
+        content: "𝕏" !important;
+        font-family: Arial, sans-serif !important;
+        font-weight: 900 !important;
+        font-style: normal !important;
+        color: #ffffff !important;
+      }
+    }
+    
+    &:hover .fa-x-twitter,
+    &:hover .fa-twitter,
+    &:hover i.fa-x-twitter,
+    &:hover i.fa-twitter {
+      color: #1DA1F2 !important;
+      transform: scale(1.15) rotate(5deg);
+      filter: drop-shadow(0 0 10px #1DA1F2);
+    }
+    
+    &:hover .x-logo-custom::before {
+      color: #ffffff !important;
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+    }
+    
+    h3, h4 {
+      color: #ffffff !important;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.9) !important;
+      line-height: 1.7;
+    }
+    
+    a {
+      color: rgba(255, 255, 255, 0.9) !important;
+      
+      &:hover {
+        color: #EE0000 !important;
+      }
+    }
+  }
+  
+  // Ensure FontAwesome icons are loaded and visible
+  .blocks-section .td-box i::before,
+  .blocks-section .td-box .fa::before,
+  .blocks-section .td-box .fab::before,
+  .blocks-section .td-box .fas::before {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome" !important;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  // Cover block text visibility
+  .td-cover-block {
+    h1, h2, h3, h4, h5, h6, p, span, div {
+      color: #ffffff !important;
+    }
+  }
+
+  // Enhanced hero/cover section
+  .td-cover-block {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(238, 0, 0, 0.3) 100%);
+    
+    .display-1 {
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      color: #ffffff !important;
+    }
+    
+    .lead {
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+      color: #ffffff !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #ffffff !important;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    
+    p, div, span {
+      color: #ffffff !important;
+    }
+    
+    .btn {
+      color: #ffffff !important;
+    }
+  }
+
+  // Ensure all cover content is visible
+  .td-cover-block__main,
+  .td-cover-block__content {
+    color: #ffffff !important;
+    
+    * {
+      color: inherit;
+    }
+  }
+
+  // Card enhancements
+  .card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  // Typography improvements
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  h2 {
+    position: relative;
+    padding-bottom: 0.5rem;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, $primary 0%, transparent 100%);
+      border-radius: 2px;
+    }
+  }
+
+  // Override for light text on dark backgrounds
+  .td-overlay--dark,
+  section[class*="dark"],
+  .bg-dark,
+  [style*="background: #000"],
+  [style*="background-color: #000"],
+  [style*="background: rgb(0"],
+  .td-box--dark,
+  .blocks-section.color-dark {
+    h1, h2, h3, h4, h5, h6 {
+      color: #ffffff !important;
+      
+      &::after {
+        background: linear-gradient(90deg, $primary 0%, rgba(238, 0, 0, 0.3) 100%);
+      }
+    }
+    
+    p, span, div, li, a {
+      color: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    a:hover {
+      color: #EE0000 !important;
+    }
+  }
+
+  // Smooth animations
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-in {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  // Link improvements
+  a {
+    color: $primary;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: darken($primary, 10%);
+    }
+  }
+
+  // Code blocks
+  code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.875em;
+    color: #d63384;
+  }
+
+  pre {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  // ====================================
+  // COMPREHENSIVE RESPONSIVE IMPROVEMENTS
+  // ====================================
+
+  // Mobile-first responsive typography
+  @media (max-width: 576px) {
+    body {
+      font-size: 0.9rem;
+    }
+    
+    h1 {
+      font-size: 1.75rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+    }
+    
+    .btn {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+    }
+    
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  // Tablet improvements
+  @media (min-width: 577px) and (max-width: 992px) {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.75rem;
+    }
+  }
+
+  // Touch-friendly improvements for mobile/tablet
+  @media (hover: none) and (pointer: coarse) {
+    .btn, a, button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    .nav-link {
+      padding: 1rem !important;
+    }
+  }
+
+  // Print styles
+  @media print {
+    .td-navbar,
+    .td-footer,
+    .td-sidebar {
+      display: none !important;
+    }
+    
+    .td-content {
+      max-width: 100%;
+      padding: 0;
+    }
+    
+    a[href]:after {
+      content: " (" attr(href) ")";
+      font-size: 0.8em;
+      color: #666;
+    }
+  }
+
+  // ====================================
+  // PERFORMANCE OPTIMIZATIONS
+  // ====================================
+
+  // Optimize images
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  // Lazy loading hint
+  img[loading="lazy"] {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  }
+
+  // GPU acceleration for animations
+  .collection-card,
+  .usecase-card,
+  .tech-card,
+  .blog-posts-list__item,
+  .section-index .entry {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  // Reduce motion for users who prefer it
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  // Optimize font loading
+  @font-face {
+    font-family: 'Open Sans';
+    font-display: swap;
+  }
+
+  // ====================================
+  // ACCESSIBILITY IMPROVEMENTS
+  // ====================================
+
+  // Focus visible for keyboard navigation
+  *:focus-visible {
+    outline: 3px solid #EE0000;
+    outline-offset: 2px;
+  }
+
+  // Skip to main content link
+  .skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #EE0000;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 9999;
+    
+    &:focus {
+      top: 0;
+    }
+  }
+
+  // High contrast mode support
+  @media (prefers-contrast: high) {
+    .collection-card,
+    .usecase-card,
+    .tech-card {
+      border: 2px solid currentColor;
+    }
+  }
+
+  // Dark mode support (future enhancement)
+  @media (prefers-color-scheme: dark) {
+    // Placeholder for dark mode styles
+    // Can be expanded based on requirements
+  }
+
   

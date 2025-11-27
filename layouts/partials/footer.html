@@ -1,22 +1,236 @@
 {{ $links := .Site.Params.links -}}
+
+<style>
+.td-footer {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    padding: 3rem 0 1.5rem;
+    color: #ffffff;
+    border-top: 1px solid rgba(238, 0, 0, 0.2);
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.td-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 100px;
+    background: radial-gradient(ellipse at top, rgba(238, 0, 0, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.td-footer .container-fluid {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section {
+    flex: 0 0 auto;
+}
+
+.footer-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.td-footer__links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.td-footer__links-item {
+    display: inline-block;
+    margin: 0;
+}
+
+.td-footer__links-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+
+.td-footer__links-item a:hover {
+    background: rgba(238, 0, 0, 0.1);
+    border-color: rgba(238, 0, 0, 0.4);
+    color: #EE0000;
+    transform: translateY(-3px);
+}
+
+.td-footer__links-item i {
+    font-size: 1.125rem;
+    transition: transform 0.3s ease;
+}
+
+.td-footer__links-item a:hover i {
+    transform: scale(1.1);
+}
+
+.footer-branding {
+    text-align: center;
+    flex: 1 1 auto;
+}
+
+.footer-logo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+.footer-tagline {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.td-footer__copyright-etc {
+    padding: 1.5rem 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+}
+
+.td-footer__copyright-etc span {
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
+.td-footer__copyright-etc a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.td-footer__copyright-etc a:hover {
+    color: #EE0000;
+}
+
+.td-footer__about {
+    margin-top: 1rem;
+}
+
+.td-footer__about a {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.td-footer__about a:hover {
+    color: #EE0000;
+}
+
+@media (max-width: 768px) {
+    .td-footer {
+        padding: 2rem 0 1rem;
+    }
+    
+    .footer-content-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .footer-section {
+        width: 100%;
+    }
+    
+    .footer-section-title {
+        font-size: 0.7rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .td-footer__links-item a {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .footer-logo {
+        font-size: 1.125rem;
+    }
+    
+    .footer-tagline {
+        font-size: 0.7rem;
+    }
+    
+    .td-footer__copyright-etc {
+        padding: 1rem 1rem 0;
+        font-size: 0.75rem;
+    }
+    
+    .td-footer__copyright-etc span {
+        display: block;
+        margin: 0.25rem 0;
+    }
+}
+</style>
+
 <footer class="td-footer row d-print-none">
   <div class="container-fluid">
-    <div class="row mx-md-2">
-      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+    <div class="footer-content-wrapper">
+      <div class="footer-section">
         {{ with $links }}
         {{ with index . "user" }}
+        <h6 class="footer-section-title">Connect</h6>
         {{ template "footer-links-block"  . }}
         {{ end }}
         {{ end }}
       </div>
-      <div class="col-6 col-sm-4 text-end text-xs-center order-sm-3">
+      
+      <div class="footer-branding">
+        <div class="footer-logo">Ansible Middleware</div>
+        <div class="footer-tagline">Automate with confidence</div>
+      </div>
+      
+      <div class="footer-section">
         {{ with $links }}
         {{ with index . "developer" }}
+        <h6 class="footer-section-title">Developer</h6>
         {{ template "footer-links-block"  . }}
         {{ end }}
         {{ end }}
       </div>
-      <div class="td-footer__copyright-etc col-12 col-sm-4 text-center py-2 order-sm-2">
+    </div>
+    
+    <div class="row">
+      <div class="td-footer__copyright-etc col-12">
         {{ with .Site.Params.copyright -}}
           <span>&copy; {{ now.Year }} {{ . }} {{ T "footer_all_rights_reserved" }}</span>
         {{- end }}

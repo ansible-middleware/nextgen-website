@@ -1,0 +1,229 @@
+<style>
+.content-page-wrapper {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    min-height: calc(100vh - 200px);
+    padding: 3rem 0;
+}
+
+.td-content {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.td-content > h1 {
+    color: #1a1a1a !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #EE0000;
+    position: relative;
+}
+
+.td-content > h1::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4444 0%, transparent 100%);
+}
+
+.td-content .lead {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+    padding: 1.5rem;
+    border-left: 4px solid #EE0000;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(238, 0, 0, 0.1);
+}
+
+.article-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.article-meta .badge {
+    background: rgba(238, 0, 0, 0.1);
+    color: #EE0000;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.td-content h2 {
+    color: #1a1a1a;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(238, 0, 0, 0.2);
+}
+
+.td-content h3 {
+    color: #1a1a1a;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.td-content h4, .td-content h5, .td-content h6 {
+    color: #1a1a1a;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.td-content p {
+    color: #333;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+}
+
+.td-content ul, .td-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.td-content li {
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+}
+
+.td-content a {
+    color: #EE0000;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.td-content a:hover {
+    border-bottom-color: #EE0000;
+}
+
+.td-content blockquote {
+    background: #f8f9fa;
+    border-left: 4px solid #EE0000;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+.td-content code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #d63384;
+}
+
+.td-content pre {
+    background: #1a1a1a;
+    color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.td-content table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.td-content th {
+    background: linear-gradient(135deg, #EE0000 0%, #ff4444 100%);
+    color: #ffffff;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.td-content td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.td-content tr:hover {
+    background: #f8f9fa;
+}
+
+.feedback-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .content-page-wrapper {
+        padding: 1.5rem 0;
+    }
+    
+    .td-content {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .td-content > h1 {
+        font-size: 2rem;
+    }
+    
+    .td-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .td-content p {
+        font-size: 1rem;
+    }
+}
+</style>
+
+<div class="content-page-wrapper">
+    <div class="td-content">
+        <h1>{{ .Title }}</h1>
+        {{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+        <header class="article-meta">
+            {{- partial "taxonomy_terms_article_wrapper.html" . }}
+            {{- if (and (not .Params.hide_readingtime) (.Site.Params.ui.readingtime.enable)) }}
+                {{- partial "reading-time.html" . }}
+            {{- end }}
+        </header>
+        {{ .Content }}
+        {{- if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.Config.Services.GoogleAnalytics.ID)) }}
+            <div class="feedback-section">
+                {{- partial "feedback.html" .Site.Params.ui.feedback }}
+            </div>
+        {{- end }}
+        {{- if (.Site.Config.Services.Disqus.Shortname) }}
+            <br />
+            {{- partial "disqus-comment.html" . }}
+        {{- end }}
+        {{- partial "page-meta-lastmod.html" . }}
+    </div>
+</div>
+{{/**/ -}}
+

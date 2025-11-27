@@ -19,10 +19,10 @@
 <button class="btn btn-primary mb-4 feedback--answer feedback--answer-yes">{{- i18n "feedback_positive" -}}</button>
 <button class="btn btn-primary mb-4 feedback--answer feedback--answer-no">{{- i18n "feedback_negative" -}}</button>
 <p class="feedback--response feedback--response-yes">
-  {{ .yes | safeHTML }}
+  {{ .Site.Params.ui.feedback.yes | safeHTML }}
 </p>
 <p class="feedback--response feedback--response-no">
-  {{ .no | safeHTML }}
+  {{ .Site.Params.ui.feedback.no | safeHTML }}
 </p>
 </div>
 <script>

@@ -1,40 +1,290 @@
 {{ define "main" }}
-{{ if (and .Parent .Parent.IsHome) -}}
-  {{ $.Scratch.Set "blog-pages" (where .Site.RegularPages "Section" .Section) -}}
-{{ else -}}
-  {{$.Scratch.Set "blog-pages" .Pages -}}
-{{ end -}}
+{{- if (and .Parent .Parent.IsHome) }}
+  {{- $.Scratch.Set "blog-pages" (where .Site.RegularPages "Section" .Section) }}
+{{- else }}
+  {{- $.Scratch.Set "blog-pages" .Pages }}
+{{- end }}
 
-<div class="td-blog-posts">
-  {{ if .Pages -}}
-    {{ $pag := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006" ) -}}
-    {{ range $pag.PageGroups -}}
-    <div class="h2">{{ T "post_posts_in" }} {{ .Key }}</div>
-    <ul class="td-blog-posts-list">
-      {{ range .Pages -}}
-      <li class="td-blog-posts-list__item">
-        <div class="td-blog-posts-list__body">
-          <h5 class="mt-0 mb-1"><a href="{{  .Params.link }}" target="_blank">{{ .Title }}</a></h5>
-          <p class="mb-2 mb-md-3"><small class="text-muted">{{ .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ .CurrentSection.LinkTitle }}</small></p>
-          <header class="article-meta">
-            {{ partial "taxonomy_terms_article_wrapper.html" . -}}
-            {{ if (and (not .Params.hide_readingtime) (.Site.Params.ui.readingtime.enable)) -}}
-              {{ partial "reading-time.html" . -}}
-            {{ end -}}
-          </header>
-          {{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") -}}
-          <p class="pt-0 mt-0">{{ .Plain | safeHTML | truncate 250 }}</p>
-          <p class="pt-0"><a href="{{ .Params.link }}" target="_blank" aria-label="{{ T "ui_read_more"}} - {{ .LinkTitle }}">{{ T "ui_read_more"}}</a></p>
+<style>
+.blog-page-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    min-height: 100vh;
+    padding: 2rem 0 4rem;
+}
+
+.blog-header {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    margin-bottom: 3rem;
+    border-bottom: 4px solid #EE0000;
+}
+
+.blog-header h1 {
+    color: #ffffff !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.blog-header p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.125rem;
+}
+
+.year-section {
+    margin-bottom: 3rem;
+}
+
+.year-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #EE0000;
+    display: inline-block;
+}
+
+.td-blog-posts-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin: 0;
+}
+
+.td-blog-posts-list__item {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.td-blog-posts-list__item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #EE0000 0%, #ff4444 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.td-blog-posts-list__item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.td-blog-posts-list__item:hover::before {
+    transform: scaleX(1);
+}
+
+.td-blog-posts-list__body {
+    padding: 2rem;
+}
+
+.td-blog-posts-list__body h5 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.td-blog-posts-list__body h5 a {
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.td-blog-posts-list__body h5 a:hover {
+    color: #EE0000;
+}
+
+.blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.blog-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.blog-date::before {
+    content: '📅';
+}
+
+.article-meta {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.article-meta .badge {
+    background: rgba(238, 0, 0, 0.1);
+    color: #EE0000;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.blog-excerpt {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: #EE0000;
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    border: 2px solid #EE0000;
+}
+
+.blog-read-more:hover {
+    background: #ffffff;
+    color: #EE0000 !important;
+    transform: translateX(5px);
+}
+
+.blog-read-more::after {
+    content: '→';
+    transition: transform 0.3s ease;
+}
+
+.blog-read-more:hover::after {
+    transform: translateX(3px);
+}
+
+.td-blog-posts__pagination {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.td-blog-posts__pagination nav {
+    background: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.td-blog-posts__pagination .pagination {
+    margin: 0;
+}
+
+.td-blog-posts__pagination .page-link {
+    color: #EE0000;
+    border-color: #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.td-blog-posts__pagination .page-link:hover {
+    background: #EE0000;
+    color: #ffffff;
+    border-color: #EE0000;
+}
+
+.td-blog-posts__pagination .page-item.active .page-link {
+    background: #EE0000;
+    border-color: #EE0000;
+}
+
+@media (max-width: 768px) {
+    .td-blog-posts-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .blog-header h1 {
+        font-size: 2rem;
+    }
+    
+    .year-title {
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<div class="blog-page-container">
+    <div class="container">
+        {{- if .Pages }}
+            {{- $pag := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006" ) }}
+            {{- range $pag.PageGroups }}
+            <div class="year-section">
+                <h2 class="year-title">{{ T "post_posts_in" }} {{ .Key }}</h2>
+                <ul class="td-blog-posts-list">
+                    {{- range .Pages }}
+                    <li class="td-blog-posts-list__item">
+                        <div class="td-blog-posts-list__body">
+                            {{- partial "featured-image.html" (dict "p" . "w" 400 "h" 200 "class" "blog-image") }}
+                            <h5><a href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">{{ .Title }}</a></h5>
+                            <div class="blog-meta">
+                                <span class="blog-date">{{ .Date.Format ($.Param "time_format_blog") }}</span>
+                                <span>{{ T "ui_in"}} {{ .CurrentSection.LinkTitle }}</span>
+                            </div>
+                            <header class="article-meta">
+                                {{- partial "taxonomy_terms_article_wrapper.html" . }}
+                                {{- if (and (not .Params.hide_readingtime) (.Site.Params.ui.readingtime.enable)) }}
+                                    {{- partial "reading-time.html" . }}
+                                {{- end }}
+                            </header>
+                            <p class="blog-excerpt">{{ .Plain | safeHTML | truncate 250 }}</p>
+                            <a href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer" class="blog-read-more" aria-label="{{ T "ui_read_more"}} - {{ .LinkTitle }}">
+                                {{ T "ui_read_more"}}
+                            </a>
+                        </div>
+                    </li>
+                    {{- end }}
+                </ul>
+            </div>
+            {{- end }}
+        {{- end }}
+        
+        <div class="td-blog-posts__pagination">
+            {{- if .Pages }}
+                {{- template "_internal/pagination.html" . }}
+            {{- end }}
         </div>
-      </li>
-      {{ end -}}
-    </ul>
-    {{ end -}}
-  {{ end }}
+    </div>
 </div>
-<div class="td-blog-posts__pagination">
-  {{ if .Pages -}}
-    {{ template "_internal/pagination.html" . -}}
-  {{ end -}}
-</div>
-{{ end -}}
+{{- end }}

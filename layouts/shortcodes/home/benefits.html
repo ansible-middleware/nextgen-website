@@ -1,0 +1,257 @@
+{{ $benefits := $.Page.Params.benefits -}}
+
+<style>
+.benefits-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 5rem 0;
+    position: relative;
+}
+
+.benefits-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #EE0000 50%, transparent 100%);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #EE0000 0%, #ff4444 100%);
+    border-radius: 2px;
+}
+
+.benefits-intro {
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.intro-headline {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.intro-headline strong {
+    color: #EE0000;
+}
+
+.products-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.product-tag {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    border: 2px solid rgba(238, 0, 0, 0.15);
+    font-weight: 600;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.product-tag:hover {
+    background: linear-gradient(135deg, #EE0000 0%, #ff4444 100%);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(238, 0, 0, 0.2);
+    border-color: #EE0000;
+}
+
+.product-tag .product-name {
+    font-weight: 700;
+}
+
+.product-tag .product-upstream {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-left: 0.25rem;
+}
+
+.intro-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.intro-link {
+    color: #EE0000;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid #EE0000;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.intro-link:hover {
+    background: #EE0000;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(238, 0, 0, 0.2);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.benefit-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #EE0000 0%, #ff4444 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(238, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: rgba(238, 0, 0, 0.2);
+}
+
+.benefit-card:hover::before {
+    transform: scaleX(1);
+}
+
+.benefit-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border: 2px solid rgba(238, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    font-size: 2rem;
+}
+
+.benefit-card:hover .benefit-icon {
+    transform: scale(1.1) rotate(-5deg);
+    background: linear-gradient(135deg, #EE0000 0%, #ff4444 100%);
+    box-shadow: 0 8px 20px rgba(238, 0, 0, 0.3);
+}
+
+.benefit-card:hover .benefit-icon::before {
+    filter: brightness(0) invert(1);
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.benefit-card:hover .benefit-title {
+    color: #EE0000;
+}
+
+.benefit-description {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .benefits-section {
+        padding: 3rem 0;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .benefit-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .benefits-intro p {
+        font-size: 1rem;
+    }
+}
+</style>
+
+<div class="benefits-section">
+    <div class="container">
+        <div class="benefits-intro">
+            <h2 class="section-title">Why Choose Ansible Middleware?</h2>
+            
+            <p class="intro-headline">
+                Build, deploy, and manage <strong>multi-cloud application infrastructure at scale</strong> with the power of Ansible Automation Platform and Red Hat Application Services.
+            </p>
+            
+            <div class="intro-links">
+                <a href="https://www.redhat.com/en/technologies/management/ansible" target="_blank" rel="noopener" class="intro-link">
+                    Learn About Ansible Platform →
+                </a>
+                <a href="https://developers.redhat.com/cheat-sheets/red-hat-openshift-application-services-cheat-sheet" target="_blank" rel="noopener" class="intro-link">
+                    Application Services Guide →
+                </a>
+            </div>
+        </div>
+        
+        <div class="benefits-grid">
+            {{ range $benefits -}}
+            <div class="benefit-card">
+                <div class="benefit-icon">{{ .icon }}</div>
+                <h4 class="benefit-title">{{ .title }}</h4>
+                <div class="benefit-description">{{ .description | markdownify }}</div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+

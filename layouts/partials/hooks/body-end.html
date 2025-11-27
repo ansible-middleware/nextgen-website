@@ -20,3 +20,351 @@ for (const e of document.querySelectorAll(".docsearch-placeholder")) {
 
 </script>
 {{ end }}
+
+<!-- Enhanced UI Animations and Interactions -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+    
+    // Smooth scroll with offset for fixed navbar (with sanitization)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            // Sanitize: only allow hash links
+            if (!href || !href.startsWith('#')) return;
+            
+            const target = document.querySelector(href);
+            if (target) {
+                const offset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                fadeInObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe cards and sections
+    const animatedElements = document.querySelectorAll('.usecase-card, .tech-card, .collection-card, .blocks-section');
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        fadeInObserver.observe(el);
+    });
+
+    // Navbar scroll effect
+    let lastScroll = 0;
+    const navbar = document.querySelector('.td-navbar');
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+        } else {
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        }
+        
+        lastScroll = currentScroll;
+    });
+
+    // Add ripple effect to buttons
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple-effect');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+
+    // Parallax effect for cover sections (if exists)
+    const coverSection = document.querySelector('.td-cover-block');
+    if (coverSection) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            coverSection.style.transform = `translateY(${parallax}px)`;
+        });
+    }
+
+    // Add hover sound effect to cards (visual feedback)
+    document.querySelectorAll('.usecase-card, .tech-card, .collection-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+    });
+
+    // Lazy load images with fade-in
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                }
+                
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                });
+                
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+
+    // Add stagger animation to card grids
+    const cardContainers = document.querySelectorAll('.row');
+    cardContainers.forEach(container => {
+        const cards = container.querySelectorAll('.usecase-card, .tech-card, .collection-card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.transitionDelay = `${index * 0.1}s`;
+            }, 100);
+        });
+    });
+
+    // ====================================
+    // PERFORMANCE OPTIMIZATIONS
+    // ====================================
+    
+    // Defer non-critical CSS
+    const deferCSS = () => {
+        const stylesheets = document.querySelectorAll('link[rel="stylesheet"][data-defer]');
+        stylesheets.forEach(link => {
+            link.rel = 'stylesheet';
+        });
+    };
+    
+    // Load deferred CSS after page load
+    if (document.readyState === 'complete') {
+        deferCSS();
+    } else {
+        window.addEventListener('load', deferCSS);
+    }
+    
+    // Optimize images with Intersection Observer
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                    }
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+    
+    // Add loading indicator for slow connections
+    if ('connection' in navigator && navigator.connection.effectiveType) {
+        const connectionType = navigator.connection.effectiveType;
+        if (connectionType === 'slow-2g' || connectionType === '2g') {
+            document.body.classList.add('slow-connection');
+        }
+    }
+    
+    // Prefetch important pages on hover (with security checks)
+    const prefetchLink = (url) => {
+        try {
+            // Sanitize URL - only allow same-origin URLs
+            const urlObj = new URL(url, window.location.origin);
+            if (urlObj.origin !== window.location.origin) {
+                return; // Skip external URLs
+            }
+            
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = urlObj.href;
+            document.head.appendChild(link);
+        } catch (e) {
+            // Invalid URL, skip prefetch
+            console.warn('Invalid prefetch URL:', url);
+        }
+    };
+    
+    document.querySelectorAll('a[href^="/"]').forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            if (!this.dataset.prefetched && this.href) {
+                prefetchLink(this.href);
+                this.dataset.prefetched = 'true';
+            }
+        }, { once: true });
+    });
+    
+    // Service Worker registration (if available)
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').catch(() => {
+                // Service worker not available, continue without it
+            });
+        });
+    }
+    
+    // ====================================
+    // ACCESSIBILITY ENHANCEMENTS
+    // ====================================
+    
+    // Add keyboard navigation for cards
+    document.querySelectorAll('.collection-card, .usecase-card, .tech-card').forEach(card => {
+        const link = card.querySelector('a');
+        if (link && !card.hasAttribute('tabindex')) {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'article');
+            
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    link.click();
+                }
+            });
+        }
+    });
+    
+    // Announce dynamic content changes for screen readers
+    const announceToScreenReader = (message) => {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => announcement.remove(), 1000);
+    };
+    
+    // Monitor page performance
+    if ('PerformanceObserver' in window) {
+        try {
+            const perfObserver = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (entry.loadTime > 3000) {
+                        console.warn('Slow resource:', entry.name, entry.loadTime);
+                    }
+                }
+            });
+            
+            perfObserver.observe({ entryTypes: ['resource', 'navigation'] });
+        } catch (e) {
+            // Performance observer not fully supported
+        }
+    }
+});
+</script>
+
+<style>
+/* Ripple effect for buttons */
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Animate-in class */
+.animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading state */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    to {
+        left: 100%;
+    }
+}
+
+/* Smooth page transitions */
+body {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>

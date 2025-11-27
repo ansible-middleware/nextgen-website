@@ -10,7 +10,6 @@ collections:
     docs: "https://collections.ansiblemiddleware.com/wildfly/main/"
     source: "https://github.com/ansible-middleware/wildfly"
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/wildfly/"
-    example:   
   - title: Infinispan
     icon: ansible.png
     description: >
@@ -43,7 +42,7 @@ collections:
     source: "https://github.com/ansible-middleware/common/"
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/common/"
     example:
-  - title: AMQ Broker
+  - title: AMQ
     icon: ansible.png
     description: >
       Collection to install and configure Apache ActiveMQ Artemis / Red Hat AMQ broker.
@@ -59,13 +58,30 @@ collections:
     source: "https://github.com/ansible-middleware/amq_streams"
     galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/amq_streams"
     example:
-  
+  - title: Quarkus
+    icon: ansible.png
+    description: >
+      This Ansible collection provides support to build and deploy a Quarkus app from the git repository URL.
+    docs: "https://collections.ansiblemiddleware.com/quarkus/main/"
+    source: "https://github.com/ansible-middleware/quarkus"
+    galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/quarkus"
+    example:
+  - title: JBCS
+    icon: ansible.png
+    description: >
+      Collection to install and configure JBoss Core Services as a reverse proxy / modcluster instance.
+    docs: "https://collections.ansiblemiddleware.com/jbcs/main/"
+    source: "https://github.com/ansible-middleware/jbcs"
+    galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/jbcs"
+    example:
+  - title: Common Criteria
+    icon: ansible.png
+    description: >
+      Collection to handle common criteria certification.
+    docs:
+    source: "https://github.com/ansible-middleware/common_criteria"
+    galaxy: "https://galaxy.ansible.com/ui/repo/published/middleware_automation/common_criteria"
+    example:
 ---
-
-{{% blocks/lead %}}
-
-<h2 align="center">Ansible Middleware Collections</h2><br/>
-
-{{% /blocks/lead %}}
 
 {{< home/collections >}}

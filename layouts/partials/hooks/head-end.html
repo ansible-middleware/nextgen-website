@@ -1,6 +1,152 @@
 {{ with .Site.Params.algolia_docsearch }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+<style>
+/* Enhanced Algolia DocSearch Styling */
+:root {
+    --docsearch-primary-color: #EE0000;
+    --docsearch-text-color: #1a1a1a;
+    --docsearch-spacing: 12px;
+    --docsearch-icon-stroke-width: 1.4;
+    --docsearch-highlight-color: #EE0000;
+    --docsearch-muted-color: #666;
+    --docsearch-container-background: rgba(0, 0, 0, 0.8);
+    --docsearch-logo-color: #EE0000;
+    --docsearch-searchbox-shadow: 0 8px 24px rgba(238, 0, 0, 0.15);
+    --docsearch-searchbox-background: #ffffff;
+    --docsearch-searchbox-focus-background: #ffffff;
+    --docsearch-hit-color: #1a1a1a;
+    --docsearch-hit-active-color: #ffffff;
+    --docsearch-hit-background: #ffffff;
+    --docsearch-hit-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --docsearch-key-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    --docsearch-key-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --docsearch-footer-background: #f8f9fa;
+    --docsearch-footer-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    --docsearch-modal-background: #ffffff;
+    --docsearch-modal-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.DocSearch-Button {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+    border: 2px solid rgba(238, 0, 0, 0.15) !important;
+    border-radius: 10px !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.DocSearch-Button:hover {
+    background: #ffffff !important;
+    border-color: #EE0000 !important;
+    box-shadow: 0 4px 12px rgba(238, 0, 0, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+.DocSearch-Button-Keys {
+    background: var(--docsearch-key-gradient) !important;
+    border-radius: 6px !important;
+    box-shadow: var(--docsearch-key-shadow) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.DocSearch-Search-Icon {
+    color: #EE0000 !important;
+}
+
+.DocSearch-Modal {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: var(--docsearch-modal-shadow) !important;
+}
+
+.DocSearch-SearchBar {
+    padding: 1.5rem !important;
+    border-bottom: 2px solid rgba(238, 0, 0, 0.1) !important;
+}
+
+.DocSearch-Form {
+    background: var(--docsearch-searchbox-background) !important;
+    border: 2px solid rgba(238, 0, 0, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: var(--docsearch-searchbox-shadow) !important;
+}
+
+.DocSearch-Form:focus-within {
+    border-color: #EE0000 !important;
+    box-shadow: 0 0 0 3px rgba(238, 0, 0, 0.1), 0 8px 24px rgba(238, 0, 0, 0.15) !important;
+}
+
+.DocSearch-Input {
+    font-size: 1rem !important;
+    padding: 0.75rem !important;
+}
+
+.DocSearch-Hit {
+    border-radius: 8px !important;
+    margin: 0.5rem 0 !important;
+    border-left: 3px solid transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+.DocSearch-Hit[aria-selected="true"] {
+    background: linear-gradient(135deg, #EE0000 0%, #ff4444 100%) !important;
+    border-left-color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(238, 0, 0, 0.3) !important;
+}
+
+.DocSearch-Hit-icon {
+    color: #EE0000 !important;
+}
+
+.DocSearch-Hit[aria-selected="true"] .DocSearch-Hit-icon {
+    color: #ffffff !important;
+}
+
+.DocSearch-Hit-action {
+    background: rgba(238, 0, 0, 0.1) !important;
+    border-radius: 6px !important;
+}
+
+.DocSearch-Hit[aria-selected="true"] .DocSearch-Hit-action {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.DocSearch-Footer {
+    background: var(--docsearch-footer-background) !important;
+    border-top: 2px solid rgba(238, 0, 0, 0.1) !important;
+    padding: 1rem 1.5rem !important;
+}
+
+.DocSearch-Label {
+    color: #666 !important;
+    font-weight: 600 !important;
+}
+
+.DocSearch-Commands {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.DocSearch-Commands-Key {
+    background: var(--docsearch-key-gradient) !important;
+    border-radius: 4px !important;
+    box-shadow: var(--docsearch-key-shadow) !important;
+    padding: 0.25rem 0.5rem !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+    .DocSearch-Button {
+        width: 100% !important;
+    }
+}
+</style>
 {{ end }}
+
+<!-- Security Meta Tags -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 
 {{ if eq hugo.Environment "branch" }}
 <meta name="robots" content="noindex, nofollow">
