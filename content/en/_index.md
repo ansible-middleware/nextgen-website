@@ -42,7 +42,7 @@ tech:
 ---
 
 {{< blocks/cover title="Ansible Middleware" image_anchor="top" height="full" >}}
-<a class="btn btn-lg btn-primary me-3 mb-4" href="https://developers.redhat.com/topics/ansible-automation-applications-and-services" target="_blank">
+<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://developers.redhat.com/topics/ansible-automation-applications-and-services" target="_blank">
   Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
 <a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/ansible-middleware" target="_blank">

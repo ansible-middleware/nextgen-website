@@ -226,9 +226,13 @@ html.smooth-scroll {
       height: 300px;
     }
     
-    &:hover {
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
       transform: translateY(-2px);
       box-shadow: 0 8px 16px rgba(238, 0, 0, 0.3);
+      color: #ffffff !important;
     }
     
     // Ensure text is visible
@@ -237,16 +241,36 @@ html.smooth-scroll {
       position: relative;
       z-index: 1;
     }
+    
+    // Ensure text stays white on all states
+    &:hover *, &:focus *, &:active *, &.active * {
+      color: #ffffff !important;
+    }
   }
 
   .btn-primary {
     background: linear-gradient(135deg, $primary 0%, #cc0000 100%) !important;
     box-shadow: 0 4px 12px rgba(238, 0, 0, 0.2);
     border: 2px solid transparent;
+    color: #ffffff !important;
     
-    &:hover {
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
       box-shadow: 0 8px 20px rgba(238, 0, 0, 0.4);
       border-color: #ff4444;
+      color: #ffffff !important;
+      background: linear-gradient(135deg, $primary 0%, #cc0000 100%) !important;
+    }
+    
+    // Ensure all text and icons stay white
+    &, & * {
+      color: #ffffff !important;
+    }
+    
+    &:hover *, &:focus *, &:active *, &.active * {
+      color: #ffffff !important;
     }
   }
 

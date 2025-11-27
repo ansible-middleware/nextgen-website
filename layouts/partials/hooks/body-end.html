@@ -47,6 +47,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Handle scroll down icon (link-down shortcode from Docsy)
+    // Try multiple selectors to catch different possible structures
+    const scrollDownSelectors = [
+        '.td-link-down',
+        'a.td-link-down',
+        '.td-cover-block a[href="#"]',
+        '.td-cover-block a[href^="#"]',
+        'a[href="#"]:not([href="#!"])'
+    ];
+    
+    scrollDownSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(scrollDown => {
+            // Skip if already has a proper href target
+            const href = scrollDown.getAttribute('href');
+            if (href && href !== '#' && href !== '' && document.querySelector(href)) {
+                return; // Let the regular smooth scroll handler take care of it
+            }
+            
+            scrollDown.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Find the next section after the cover block
+                const coverBlock = document.querySelector('.td-cover-block');
+                if (coverBlock) {
+                    // Find the next sibling section or the first section after cover
+                    let nextSection = coverBlock.nextElementSibling;
+                    while (nextSection && (
+                        nextSection.classList.contains('td-link-down') || 
+                        nextSection.offsetHeight === 0 ||
+                        nextSection.tagName === 'A'
+                    )) {
+                        nextSection = nextSection.nextElementSibling;
+                    }
+                    
+                    // If no next sibling, look for the first main content section
+                    if (!nextSection) {
+                        nextSection = document.querySelector('.td-main > section:not(.td-cover-block), .td-main > div:not(.td-cover-block), main > section:not(.td-cover-block)');
+                    }
+                    
+                    if (nextSection) {
+                        const offset = 80;
+                        const elementPosition = nextSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+                        
+                        window.scrollTo({
+                            top: Math.max(0, offsetPosition),
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Fallback: scroll down by viewport height
+                        window.scrollTo({
+                            top: window.pageYOffset + window.innerHeight - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    // Fallback: scroll down by viewport height
+                    window.scrollTo({
+                        top: window.pageYOffset + window.innerHeight - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            }, { once: false });
+        });
+    });
 
     // Intersection Observer for fade-in animations
     const observerOptions = {
